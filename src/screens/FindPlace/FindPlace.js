@@ -5,31 +5,35 @@ import { connect } from "react-redux";
 import PlaceList from "../../components/PlaceList/PlaceList";
 
 class FindPlaceScreen extends Component {
+  static navigatorStyle = {
+    navBarButtonColor: "orange",
+  };
+
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
   }
 
-  onNavigatorEvent = event => {
+  onNavigatorEvent = (event) => {
     if (event.type === "NavBarButtonPress") {
       if (event.id === "sideDrawerToggle") {
         this.props.navigator.toggleDrawer({
-          side: "left"
+          side: "left",
         });
       }
     }
   };
 
-  itemSelectedHandler = key => {
-    const selPlace = this.props.places.find(place => {
+  itemSelectedHandler = (key) => {
+    const selPlace = this.props.places.find((place) => {
       return place.key === key;
     });
     this.props.navigator.push({
       screen: "awesome-places.PlaceDetailScreen",
       title: selPlace.name,
       passProps: {
-        selectedPlace: selPlace
-      }
+        selectedPlace: selPlace,
+      },
     });
   };
 
@@ -45,9 +49,9 @@ class FindPlaceScreen extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    places: state.places.places
+    places: state.places.places,
   };
 };
 

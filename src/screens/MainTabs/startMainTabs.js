@@ -9,10 +9,7 @@ const startTabs = () => {
       Platform.OS === "android" ? "md-share-alt" : "ios-share",
       30
     ),
-    Icon.getImageSource(
-      Platform.OS === "android" ? "md-share-alt" : "ios-menu",
-      30
-    ),
+    Icon.getImageSource(Platform.OS === "android" ? "md-menu" : "ios-menu", 30),
   ]).then((sources) => {
     Navigation.startTabBasedApp({
       tabs: [
@@ -47,10 +44,16 @@ const startTabs = () => {
           },
         },
       ],
+      tabsStyle: {
+        tabBarSelectedButtonColor: "orange",
+      },
       drawer: {
         left: {
           screen: "awesome-places.SideDrawer",
         },
+      },
+      appStyle: {
+        tabBarSelectedButtonColor: "orange",
       },
     });
   });

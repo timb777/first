@@ -15,22 +15,27 @@ import HeadingText from "../../components/UI/HeadingText/HeadingText";
 import MainText from "../../components/UI/MainText/MainText";
 import ButtonWithBackground from "../../components/UI/ButtonWithBackground/ButtonWithBackground";
 
-import background from "../../assets/background.jpg";
+import backgroundImage from "../../assets/background.jpg";
 
 class AuthScreen extends Component {
   state = {
-    viewMode: Dimensions.get("window").height > 500 ? "portriat" : "landscape",
+    viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape",
   };
 
   constructor(props) {
     super(props);
-    Dimensions.addEventListener("change", (dims) => {
-      this.setState({
-        viewMode:
-          Dimensions.get("window").height > 500 ? "portriat" : "landscape",
-      });
-    });
+    Dimensions.addEventListener("change", this.updateStyles);
   }
+
+  componentWillUnmount() {
+    Dimensions.removeEventListener("change", this.updateStyles);
+  }
+
+  updateStyles = (dims) => {
+    this.setState({
+      viewMode: dims.window.height > 500 ? "portrait" : "landscape",
+    });
+  };
 
   loginHandler = () => {
     startMainTabs();
@@ -47,7 +52,7 @@ class AuthScreen extends Component {
       );
     }
     return (
-      <ImageBackground source={background} style={styles.backgroundImage}>
+      <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
         <View style={styles.container}>
           {headingText}
           <ButtonWithBackground color="#29aaf4" onPress={() => alert("Hello")}>
@@ -55,7 +60,7 @@ class AuthScreen extends Component {
           </ButtonWithBackground>
           <View style={styles.inputContainer}>
             <DefaultInput
-              placeholder="Your email address"
+              placeholder="Your E-Mail Address"
               style={styles.input}
             />
             <View
@@ -72,10 +77,7 @@ class AuthScreen extends Component {
                     : styles.landscapePasswordWrapper
                 }
               >
-                <DefaultInput
-                  placeholder="Your password"
-                  style={styles.input}
-                />
+                <DefaultInput placeholder="Password" style={styles.input} />
               </View>
               <View
                 style={
@@ -85,7 +87,7 @@ class AuthScreen extends Component {
                 }
               >
                 <DefaultInput
-                  placeholder="Confirm password"
+                  placeholder="Confirm Password"
                   style={styles.input}
                 />
               </View>
@@ -123,7 +125,7 @@ const styles = StyleSheet.create({
   },
   portraitPasswordContainer: {
     flexDirection: "column",
-    justifyContent: "flex-start ",
+    justifyContent: "flex-start",
   },
   landscapePasswordWrapper: {
     width: "45%",
