@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
   Image,
+  KeyboardAvoidingView,
 } from "react-native";
 import { connect } from "react-redux";
 
@@ -21,7 +22,7 @@ class SharePlaceScreen extends Component {
   static navigatorStyle = {
     navBarButtonColor: "orange",
   };
- 
+
   state = {
     placeName: "",
   };
